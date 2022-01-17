@@ -1,0 +1,124 @@
+● 学习网址
+https://www.liaoxuefeng.com/wiki/896043488029600/897271968352576
+
+● Github ssh website:
+https://github.com/fkdchtb/learngit.git
+
+● 在Windows上安装Git
+在Windows上使用Git，可以从Git官网直接下载安装程序，然后按默认选项安装即可。
+安装完成后，在开始菜单里找到“Git”->“Git Bash”，蹦出一个类似命令行窗口的东西，就说明Git安装成功！
+
+安装完成后，还需要最后一步设置，配置用户名和邮箱，在命令行输入：
+
+$ git config --global user.name "Your Name"
+$ git config --global user.email "email@example.com"
+
+● 创建一个版本库，创建一个空目录：
+$ mkdir learngit //创建文件夹目录
+$ cd learngit //进入版本库路径
+$ pwd  //用于显示当前目录
+$ git init //把这个目录变成Git可以管理的仓库
+$ ls -ah //看隐藏的.git目录
+
+● 提交文件
+注意：一定要在版本库目录下新建文件（最好用VS Code编辑，否则会有一些转码错误）
+步骤分解：工作区修改 → 添加到暂存区 → 提交到master
+
+$ git add readme.txt // 把文件修改添加到暂存区
+$ git commit -m "wrote a readme file" // 把暂存区的所有内容提交到当前分支，可以添加多个后一起提交，“”内为提交说明
+
+● 查看仓库当前的状态
+$ git status
+
+● 仓库文件有变更的情况下，可以查看修改内容
+$ git diff readme.txt
+
+● 查看历史记录
+$ git log //删除的文件此处是看不见log的
+$ git log --pretty=oneline // 过滤log信息，只显示一行简洁版log信息
+$ git reflog // 查看所有命令，包括删除记录
+
+● 回退版本(更新工作区)
+$ git reset --hard HEAD^ // 回退到上一个版本
+$ git reset --hard HEAD^^ // 回退到上上一个版本
+$ git reset --hard 1094a // 回退到版本号为1094a*的版本，版本号没必要写全，前几位就可以了，Git会自动去找
+
+● 查看文件内容
+$ cat readme.txt
+
+● 丢弃工作区的修改，回到最近一次git commit或git add时的状态，类似revert处理
+=>其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
+
+$ git checkout -- readme.txt
+
+● 把暂存区的修改撤销掉（unstage），重新放回工作区
+$ git reset HEAD readme.txt
+
+● 删除文件
+$ git add test.txt
+
+● 创建远程Github仓库
+step1: 创建SSH Key
+$ ssh-keygen -t rsa -C "youremail@example.com" //.ssh目录生成
+C:\Users\liqiang-neu\.ssh下，id_rsa是私钥，不能泄露，id_rsa.pub是公钥，可公开
+
+step2: Add SSH Key
+登陆GitHub，打开“Account settings”，“SSH Keys”页面，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容，
+点“Add Key”，就应该看到已经添加的Key.
+
+step3: 添加远程库
+登陆GitHub，然后，在右上角找到“Create a new repo”按钮，在Repository name填入learngit，其他保持默认设置，点击“Create repository”按钮，
+就成功地创建了一个新的Git仓库.
+
+step4: 关联远程库
+$ git remote add origin git@github.com:fkdchtb/learngit.git // origin:远程库; fkdchtb：GitHub帐户名
+
+step5：把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程
+$ git remote add origin git@github.com:fkdchtb/learngit.git // -u用于第一次推送远程，作用是推送并将master同远程master关联
+$ git push origin master //用于非首次推送，仅将本地master分支的最新修改推送至GitHub.
+
+step6: 查看github连接状态（NG：连接不上）
+$ ssh -T -p 443 git@ssh.github.com
+
+● 删除远程库s
+$ git remote -v //查看远程库信息
+$ git remote rm origin // 根据名字删除，此处的“删除”其实是解除了本地和远程的绑定关系，并不是物理上删除了远程库。
+
+● 克隆一个本地库
+$ git clone git@github.com:fkdchtb/gitskills.git  //git@github.com:fkdchtb/gitskills.git是需要克隆的地址
+$ cd gitskills
+$ ls //查看克隆库验证
+
+拓展：
+Git支持多种协议，默认的git://使用ssh，但也可以使用https等其他协议，但ssh协议速度最快。
+可以用git@github.com:fkdchtb/gitskills.git
+还可以用https://github.com/michaelliao/gitskills.git （需要配置）
+
+http配置方法如下：
+$ git config --local -e ? ? ?//编辑本地git配置
+
+将
+url = git@github.com:你的用户名/仓库名.git
+
+改为
+url = https://github.com/你的用户名/仓库名.git
+
+然后esc ? :wq保存修改回车
+
+● 创建分支
+$ git checkout -b dev // 创建dev分支并切换到该分支
+$ git branch dev // 仅创建dev分支，不切换
+$ git checkout dev //切换到dev分支
+$ git branch // 列出所有分支，当前分支前面会标一个*号
+
+
+
+
+
+
+
+
+
+
+
+
