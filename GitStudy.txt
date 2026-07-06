@@ -55,7 +55,7 @@ $ git checkout -- readme.txt
 $ git reset HEAD readme.txt
 
 ● 删除文件
-$ git add test.txt
+$ git rm test.txt
 
 ● 创建远程Github仓库
 step1: 创建SSH Key
